@@ -1,0 +1,18 @@
+[
+    {
+        "id":1,
+        "question":"Hi, what is the weather"
+    },
+    {
+        "id":2,
+        "question":"Hi, what is my location"
+    },
+    {
+        "id":3,
+        "question":"Hi, what is the temperature"
+    },
+    {
+        "id":4,
+        "question":"Hi, how are you"
+    }
+]

@@ -1,0 +1,8 @@
+.wrapper{
+    /* border:2px solid violet; */
+    height:15%;
+    display: flex;
+    align-items: flex-end;
+    gap:2%;
+    padding-bottom: 2%;
+}
