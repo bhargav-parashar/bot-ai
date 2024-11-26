@@ -8,7 +8,8 @@ export const darkTheme = () => ({
         bgDark:"#34303D",
         bgLight:"#3D3B41",
         bgAlt:"#FFFFFF",
-        bgButton:"#3D3B41"
+        bgButton:"#3D3B41",
+        cardHover:"#212025"
       },
       secondary:{
         main:"#D7C7F4",
