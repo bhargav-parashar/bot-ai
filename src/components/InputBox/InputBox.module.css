@@ -5,4 +5,9 @@
     align-items: flex-end;
     gap:2%;
     padding-bottom: 2%;
+    position: absolute;
+    width: 98%;
+    left:50%;
+    bottom:1%;
+    transform: translateX(-50%);
 }

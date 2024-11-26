@@ -10,6 +10,7 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(
     JSON.parse(localStorage.getItem("isDarkMode")) || false
   );
+  const [chat,setChat] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("isDarkMode", isDarkMode);
@@ -23,12 +24,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isDarkMode={isDarkMode}>
+      <Layout isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} isDarkMode={isDarkMode} setChat={setChat}>
         <Outlet
           context={{
             setIsMenuOpen: setIsMenuOpen,
             isDarkMode: isDarkMode,
             setIsDarkMode: setIsDarkMode,
+            chat: chat,
+            setChat : setChat
           }}
         />
       </Layout>

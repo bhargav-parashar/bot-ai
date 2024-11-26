@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
 
-const Sidebar = ({ setIsMenuOpen }) => {
+const Sidebar = ({ setIsMenuOpen,setChat }) => {
+
   return (
     <Box className={styles.wrapper} sx={{ bgcolor: "primary.bgLight" }}>
       <Box
@@ -37,7 +38,7 @@ const Sidebar = ({ setIsMenuOpen }) => {
       </Box>
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <Box
-        onClick={()=>setIsMenuOpen(false)}
+        onClick={()=>{ setIsMenuOpen(false); setChat([]) }}
           className={styles.header}
           sx={{
             backgroundColor: "primary.bgDark",

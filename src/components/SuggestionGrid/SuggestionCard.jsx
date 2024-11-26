@@ -3,7 +3,7 @@ import styles from "./SuggestionCard.module.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
-const SuggestionCard = ({ question = "Hello" }) => {
+const SuggestionCard = ({ question = "Hello", generateResponse }) => {
   return (
     <Box
       className={styles.wrapper}
@@ -13,6 +13,7 @@ const SuggestionCard = ({ question = "Hello" }) => {
         '&:hover .MuiIconButton-root': {opacity: 1},
         transition:"background 200ms ease"
       }}
+      onClick={()=>generateResponse(question)}
     >
       <Box className={styles.text}>
         <Typography

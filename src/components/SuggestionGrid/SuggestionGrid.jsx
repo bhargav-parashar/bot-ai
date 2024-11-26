@@ -4,7 +4,7 @@ import SuggestionCard from "./SuggestionCard";
 import suggestions from "../../data/suggestionCards.json";
 import Grid from "@mui/material/Grid2";
 
-const SuggestionGrid = () => {
+const SuggestionGrid = ({generateResponse}) => {
   const isPhone = useMediaQuery("(max-width:800px)");
   const data = isPhone ? suggestions.slice(0, 3) : suggestions;
   return (
@@ -22,7 +22,7 @@ const SuggestionGrid = () => {
       >
         {data.map((item) => (
           <Grid key={item.id} size={{ xs: 12, md: 6 }}>
-            <SuggestionCard key={item.id} question={item.question} />
+            <SuggestionCard key={item.id} question={item.question} generateResponse={generateResponse} />
           </Grid>
         ))}
       </Grid>

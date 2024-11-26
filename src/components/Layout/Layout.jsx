@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid2";
 import Sidebar from "../Sidebar/Sidebar";
 
-const Layout = ({ children, isMenuOpen, setIsMenuOpen, isDarkMode }) => {
+const Layout = ({ children, isMenuOpen, setIsMenuOpen, isDarkMode, setChat }) => {
   return (
     <Grid
       container
@@ -28,7 +28,7 @@ const Layout = ({ children, isMenuOpen, setIsMenuOpen, isDarkMode }) => {
         boxShadow={{ xs: isMenuOpen ? 10 : 0, md: 0 }}
         size={{ xs: 12, md: 2 }}
       >
-        <Sidebar setIsMenuOpen={setIsMenuOpen} />
+        <Sidebar setIsMenuOpen={setIsMenuOpen} setChat={setChat} />
       </Grid>
       <Grid size={{ xs: 12, md: 10 }}>{children}</Grid>
     </Grid>

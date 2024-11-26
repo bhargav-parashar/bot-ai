@@ -9,7 +9,8 @@ export const lightTheme = () => ({
         bgLight:"#FFFFFF",
         bgAlt:"#3D3B41",
         bgButton:"#9785BA",
-        cardHover:"#fafafa"
+        cardHover:"#fafafa",
+       
       },
       secondary:{
         main:"#D7C7F4",
