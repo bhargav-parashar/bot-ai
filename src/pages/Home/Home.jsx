@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useState,useRef, useEffect} from 'react';
 import { Box } from "@mui/material";
 import styles from "./Home.module.css";
 import Navbar from "../../components/Navbar/Navbar";
@@ -12,6 +12,11 @@ import ChatCard from '../../components/ChatCard/ChatCard.jsx';
 const Home = () => {
   const {chat,setChat} = useOutletContext();
   const [chatId, setChatId] = useState(1);
+  const listRef = useRef(null);
+
+  useEffect(()=>{
+    listRef.current?.lastElementChild?.scrollIntoView();
+  },[chat]);
 
   //Generate Response
   const generateResponse = (input)=>{
@@ -47,13 +52,15 @@ const Home = () => {
       "&::-webkit-scrollbar-thumb": {
         backgroundColor: "rgba(151, 133, 186,0.4)",
         borderRadius: "8px",
-      }}} >
+      }}} 
+      ref={listRef}
+      >
         
         {chat.length === 0 &&<Hero/>}
         {chat.length === 0 && <SuggestionGrid generateResponse = {generateResponse}/>}
         {chat.length > 0 &&  chat.map((item)=><ChatCard details={item} />)}
         
-        {/* <InputBox generateResponse={generateResponse} /> */}
+       
       </Box>
       <InputBox generateResponse={generateResponse} />
     </Box>
