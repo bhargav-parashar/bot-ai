@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import { Box } from "@mui/material";
 import styles from "./Home.module.css";
 import Navbar from "../../components/Navbar/Navbar";
@@ -34,17 +34,28 @@ const Home = () => {
     setChatId((prev)=>prev+2);
   };
   return (
-    <Box className={styles.wrapper}>
+    <Box className={styles.wrapper} >
       <Navbar/>
-      <Box className={styles.chatSection}>
+      <Box className={styles.chatSection} sx={{overflowY: "auto",
+      "&::-webkit-scrollbar": {
+        width: "10px",
+      },
+      "&::-webkit-scrollbar-track": {
+        boxShadow: "inset 0 0 8px rgba(0,0,0,0.1)",
+        borderRadius: "8px",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgba(151, 133, 186,0.4)",
+        borderRadius: "8px",
+      }}} >
         
         {chat.length === 0 &&<Hero/>}
         {chat.length === 0 && <SuggestionGrid generateResponse = {generateResponse}/>}
         {chat.length > 0 &&  chat.map((item)=><ChatCard details={item} />)}
         
-        <InputBox/>
+        {/* <InputBox generateResponse={generateResponse} /> */}
       </Box>
-      
+      <InputBox generateResponse={generateResponse} />
     </Box>
   );
 };

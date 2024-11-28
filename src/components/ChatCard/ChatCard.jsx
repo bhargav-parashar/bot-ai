@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography, IconButton } from "@mui/material";
 import humanAvatar from "../../assets/images/human-avatar.png";
+import aiAvatar from "../../assets/images/ai-profile-large.png";
 import { format } from 'date-fns';
 
 const ChatCard = ({ details }) => {
@@ -17,8 +18,9 @@ const ChatCard = ({ details }) => {
     >
       <Box
         component="img"
-        src={humanAvatar}
+        src={details.type === "AI" ? aiAvatar : humanAvatar}  
         alt="human-avatar"
+        borderRadius="50%"
         height={{ xs: 30, md: 68 }}
         width={{ xs: 30, md: 68 }}
       />
