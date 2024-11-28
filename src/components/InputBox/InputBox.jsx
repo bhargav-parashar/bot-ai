@@ -1,27 +1,33 @@
 import { Box, Button, TextField, Snackbar } from "@mui/material";
 import styles from "./InputBox.module.css";
-import React, { useState } from "react";
+import React, { useState,useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const InputBox = ({ question = "Hello", generateResponse }) => {
+const InputBox = ({ question = "Hello", generateResponse, chat, resetChat }) => {
   const [input, setInput] = useState();
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const inputRef = useRef(null);
+  
+  useEffect(()=>{
+    inputRef.current.focus();
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     generateResponse(input);
     setInput("");
   };
-
-  const action = (snackbarId) => (
-    <>
-      <Link to="/history">
-        <Button size="small">See past conversations</Button>
-      </Link>
-    </>
-  );
+ 
+  
 
   const handleSave = () => {
+    const chatHistory = JSON.parse(localStorage.getItem("chat")) || [];
+    const date = new Date();
+    localStorage.setItem(
+      "chat",
+      JSON.stringify([{ chat: chat, datetime: date }, ...chatHistory])
+    );
+    resetChat();
     setShowSnackbar(true);
   };
   return (
@@ -39,6 +45,7 @@ const InputBox = ({ question = "Hello", generateResponse }) => {
           sx={{ bgcolor: "primary.bgLight" }}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          inputRef={inputRef}
         />
       </Box>
 

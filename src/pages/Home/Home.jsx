@@ -8,10 +8,13 @@ import InputBox from "../../components/InputBox/InputBox.jsx";
 import { useOutletContext } from "react-router-dom";
 import response from "../../data/response.json";
 import ChatCard from '../../components/ChatCard/ChatCard.jsx';
+import FeedbackModal from '../../components/FeedbackModal/FeedbackModal.jsx';
 
 const Home = () => {
   const {chat,setChat} = useOutletContext();
   const [chatId, setChatId] = useState(1);
+  const [selectedChatId, setSelectedChatId] = useState(null);
+  const [showModal,setShowModal] = useState(false);
   const listRef = useRef(null);
 
   useEffect(()=>{
@@ -58,11 +61,12 @@ const Home = () => {
         
         {chat.length === 0 &&<Hero/>}
         {chat.length === 0 && <SuggestionGrid generateResponse = {generateResponse}/>}
-        {chat.length > 0 &&  chat.map((item)=><ChatCard details={item} />)}
+        {chat.length > 0 &&  chat.map((item,idx)=><ChatCard details={item} key={idx} setChat = {setChat} setSelectedChatId={setSelectedChatId}  showModal={() => setShowModal(true)}  />)}
         
        
       </Box>
-      <InputBox generateResponse={generateResponse} />
+      <InputBox generateResponse={generateResponse} chat={chat} resetChat={()=>{setChat([])}}/>
+      <FeedbackModal open={showModal} setChat={setChat} selectedChatId={selectedChatId} handleClose = {()=>setShowModal(false)}/>
     </Box>
   );
 };

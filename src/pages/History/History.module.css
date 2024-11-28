@@ -1,5 +1,10 @@
 .wrapper{
-    border:2px solid pink;
+    /* border:2px solid pink; */
     height:100%;
     width:100%;
+}
+.chatSection{
+    /* border:2px solid yellowgreen; */
+    height:80vh;
+    padding:1%;  
 }

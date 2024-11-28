@@ -1,10 +1,33 @@
-import React, { useState } from "react";
-import { Box, Stack, Typography, IconButton } from "@mui/material";
+import React, { useState,useEffect } from "react";
+import { Box, Stack, Typography, IconButton,Rating } from "@mui/material";
 import humanAvatar from "../../assets/images/human-avatar.png";
 import aiAvatar from "../../assets/images/ai-profile-large.png";
 import { format } from 'date-fns';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
-const ChatCard = ({ details }) => {
+const ChatCard = ({ details, readOnly=false, setChat, setSelectedChatId, showModal }) => {
+    const [isRating, setIsRating] = useState(false);
+    const [rating, setRating] = useState(0);
+
+    useEffect(() => {
+
+        if (isRating) {
+            setChat(prev => (
+                prev.map(item => {
+                    if (item.id == details.id) {
+                        return { ...item, rating: rating || 0 }
+                    }
+                    else {
+                        return { ...item }
+                    }
+                })
+            ))
+        }
+
+    }, [rating])
+
   return (
     <Stack
     //   sx={{ border: "2px solid green" }}
@@ -15,6 +38,12 @@ const ChatCard = ({ details }) => {
       spacing={{ xs: 1, md: 3 }}
       backgroundColor="primary.bgLight"
       mb={1}
+      sx={{
+        '&:hover .feedback-btns': {
+            visibility: 'visible',
+            opacity: 1
+        }
+    }}
     >
       <Box
         component="img"
@@ -50,7 +79,7 @@ const ChatCard = ({ details }) => {
                         {format(details.time, 'hh:mm a')}
                     </Typography>
 
-                    {/* {(details.type === "AI" && !readOnly) && (
+                    {(details.type === "AI" && !readOnly) && (
                         <Stack
                             direction={'row'}
                             visibility={{ xs: 'visible', md: 'hidden' }}
@@ -62,21 +91,59 @@ const ChatCard = ({ details }) => {
                                 onClick={() => setIsRating(prev => !prev)}
                             >
                                 {!isRating && <ThumbUpOffAltIcon fontSize='inherit' />}
+
                                 {isRating && <ThumbUpAltIcon fontSize='inherit' />}
                             </IconButton>
                             <IconButton
                                 size='small'
                                 onClick={() => {
                                     setSelectedChatId(details.id)
-                                    showFeedbackModal()
+                                    showModal()
                                 }}
                             >
                                 <ThumbDownOffAltIcon fontSize='inherit' />
                             </IconButton>
                         </Stack>
-                    )} */}
+                    )}
+                 </Stack>
+                    {((isRating || details.rating > 0) && details.type === "AI") && (
+                    <Box pt={{ xs: 1, md: 2 }}>
+                        <Typography
+                            component={'legend'}
+                            fontSize={{ xs: 10, md: 12 }}
+                            mb={.5}
+                        >
+                            {readOnly ? 'Rating:' : 'Rate this reponse:'}
+                        </Typography>
+                        <Rating
+                            name="simple-controlled"
+                            value={details.rating > 0 ? details.rating : rating}
+                            onChange={(event, newValue) => {
+                                setRating(newValue)
+                            }}
+                            sx={{
+                                width: 'auto'
+                            }}
+                            readOnly={readOnly}
+                        />
+                    </Box>
+                )}
 
-                </Stack>
+                {details.feedback && (
+                    <Typography
+                        pt={1}
+                        fontSize={{ xs: 10, md: 16 }}
+                    >
+                        <Box component={'span'} fontWeight={600}>
+                            Feedback:
+                        </Box>
+                        <Box component={'span'}>
+                            {` ${details.feedback}`}
+                        </Box>
+                    </Typography>
+                )}
+
+               
                 </Box>
     </Stack>
   );
