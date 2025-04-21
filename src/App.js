@@ -8,13 +8,14 @@ import Layout from "./components/Layout/Layout.jsx";
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(
-    JSON.parse(localStorage.getItem("isDarkMode")) || false
+    JSON.parse(localStorage.getItem("isDarkMode")) || true
   );
   const [chat,setChat] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("isDarkMode", isDarkMode);
   }, [isDarkMode]);
+  
   const theme = React.useMemo(
     () => (isDarkMode ? createTheme(darkTheme()) : createTheme(lightTheme())),
     [isDarkMode]
